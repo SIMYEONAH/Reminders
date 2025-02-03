@@ -6,13 +6,33 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CreateSectionView: View {
+    @Bindable var reminderList: ReminderList
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            TextField("Name", text: $reminderList.name)
+            
+            Section("Icon") {
+                Picker("Icon", selection: $reminderList.iconName) {
+                    Image(systemName: "house").tag("house")
+                    Image(systemName: "heart.fill").tag("heart.fill")
+                    Image(systemName: "calendar").tag("calendar")
+                    Image(systemName: "flag.fill").tag("flag.fill")
+                    Image(systemName: "sun.max.fill").tag("sun.max.fill")
+                    Image(systemName: "graduationcap").tag("graduationcap")
+                    Image(systemName: "exclamationmark.3").tag("exclamationmark.3")
+                }
+                .pickerStyle(.segmented)
+            }
+        }
+        .navigationTitle("Add Segment")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    CreateSectionView()
+    CreateSectionView(reminderList: ReminderList())
 }
